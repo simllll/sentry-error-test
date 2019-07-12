@@ -23,16 +23,17 @@ export default class IndexPage extends Vue {
 	mounted() {
 		// this part is only called on client
     console.log('MOUNTED ON FRONTEND');
-    this.$sentry.captureMessage('mounted'); // valid call for types/sentry.d.s which declares browser interface
+    this.$sentry.captureMessage('mounted'); // valid typings for types/sentry.d.s which declares browser interface
 	}
 
 	created() {
 		// this part can be called on server or on client
 		if (process.server) {
 		  console.log('HELLO FROM BACKEND');
-      this.$sentry.captureMessage('backend'); // now we have the interface for the frontend/browser, but we would need the one for the backend
+      this.$sentry.captureMessage('backend'); // invalid typings - now we have the interface for the frontend/browser, but we would need the one for the backend
     } else {
-		  console.log('HELLO FROM FRONTEND'); // valid call
+		  console.log('HELLO FROM FRONTEND');
+      this.$sentry.captureMessage('backend'); // valid typings
     }
 
     /**
